@@ -41,11 +41,12 @@ namespace DELFOS.JWT.SSO.API.Controllers
             var credentials = new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                new Claim(ClaimTypes.Email, user.EmailAddress),
-                new Claim(ClaimTypes.GivenName, user.GivenName),
-                new Claim(ClaimTypes.Surname, user.Surname),
-                new Claim(ClaimTypes.Role, user.Role)
+                user.UserName != null ? new Claim(ClaimTypes.NameIdentifier, user.UserName):throw new ArgumentNullException(nameof(user.UserName)),
+                user.EmailAddress !=null ? new Claim(ClaimTypes.Email, user.EmailAddress):throw new ArgumentNullException(nameof(user.EmailAddress)),
+                user.GivenName !=null ? new Claim(ClaimTypes.GivenName, user.GivenName):throw new ArgumentNullException(nameof(user.GivenName)),
+                user.Surname !=null ? new Claim(ClaimTypes.Surname, user.Surname):throw new ArgumentNullException(nameof(user.Surname)),
+                user.Role !=null ? new Claim(ClaimTypes.Role, user.Role):throw new ArgumentNullException(nameof(user.Role)),
+                //user.Organization !=null ? new Claim(ClaimTypes.Name, user.Organization):throw new ArgumentNullException(nameof(user.Organization))
             };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"], 
                                             _config["Jwt:Audience"],
@@ -60,6 +61,7 @@ namespace DELFOS.JWT.SSO.API.Controllers
             var currentUser = UserConstants.
                 Users.FirstOrDefault(op => op.UserName.ToLower() == 
                 userLogin.UserName.ToLower() && op.Password == userLogin.Password);
+
             if(currentUser != null)
             {
                 return currentUser;
