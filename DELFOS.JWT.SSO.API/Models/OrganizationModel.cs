@@ -31,7 +31,7 @@ namespace DELFOS.JWT.SSO.API.Models
         public string? District { get; set; } //bairro
 
         [Column(Order =8), StringLength(100)]
-        public string? City { get; set; }
+        public string? CityId { get; set; }
 
         [Column(Order =9)]
         public int StateId { get; set; }
@@ -40,5 +40,8 @@ namespace DELFOS.JWT.SSO.API.Models
         public int CountryId { get; set; }
 
         public CountryModel? Country { get; set; } 
+        public StateModel? State { get; set; }
+        public CityModel? City { get; set; }
+
     }
 }

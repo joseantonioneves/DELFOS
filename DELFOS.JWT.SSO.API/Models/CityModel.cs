@@ -3,17 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DELFOS.JWT.SSO.API.Models
 {
-    public class CountryModel
+    public class CityModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required,StringLength(100)]
-        public string? Country { get; set; }
+        [Required, StringLength(50)]
+        public string? Name { get; set; }
 
-        public ICollection<StateModel> States { get; set; } = null!;
-        public ICollection<CityModel> Cities { get; set; } = null!;
+        public StateModel? State { get; set; }
 
     }
 }
