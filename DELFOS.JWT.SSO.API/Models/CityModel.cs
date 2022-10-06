@@ -12,6 +12,9 @@ namespace DELFOS.JWT.SSO.API.Models
         [Required, StringLength(50)]
         public string? Name { get; set; }
 
+        [Required]
+        public int StateId { get; set; }
+
         public StateModel? State { get; set; }
 
     }
