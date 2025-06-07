@@ -1,10 +1,12 @@
+using DELFOS.JWT.SSO.API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Adiciona o serviço ao container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -24,6 +26,8 @@ builder.Services.AddMvc();
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<DELFOS_JWT_SSO_Context>(
+    op=>op.UseSqlServer(builder.Configuration.GetConnectionString("ConnDev")));
 
 
 var app = builder.Build();
@@ -34,6 +38,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    
 }
 
 app.UseHttpsRedirection();

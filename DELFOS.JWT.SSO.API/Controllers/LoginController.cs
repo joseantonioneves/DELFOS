@@ -1,4 +1,4 @@
-﻿using DELFOS.JWT.SSO.API.Models;
+﻿using DELFOS.JWT.SSO.MODELS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
